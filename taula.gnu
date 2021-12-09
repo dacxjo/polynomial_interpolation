@@ -1,0 +1,1 @@
+plot 'p3taula.out' w d, 'taula.in' w p pt 7 lc 2 ps 1.5

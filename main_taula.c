@@ -1,55 +1,88 @@
 
+#include <strings.h>
 #include "stdio.h"
 #include "stdlib.h"
 #include "funs_interp.h"
 
 int main() {
 
-    double *x, *y;
-    int n = 4, i, result;
-    FILE *file;
+    double *x, *y, a, b, pdistance, peval;
+    int n, result, i, j, pnum = 1000;
+    FILE *file,*fout;
+
+    printf("-----Interpolacio Polinomial-----\n");
+    printf("Ingressi el grau del polinomi:\n");
+    scanf("%d", &n);
+
+    n += 1;
 
     x = (double *) malloc((sizeof(double) * n));
     y = (double *) malloc((sizeof(double) * n));
+
+    genVectNul(n, x);
+    genVectNul(n, y);
 
     if (x == NULL || y == NULL) {
         printf("No memory");
         exit(EXIT_FAILURE);
     }
 
+    file = fopen("../taula.in", "r");
 
-    x[0] = 4.8;
-    x[1] = 3.2;
-    x[2] = 2.7;
-    x[3] = 1.0;
+    if (file == NULL) {
+        printf("No es troba l'arxiu");
+        exit(EXIT_FAILURE);
+    }
 
+    for (i = 0; i < n; i++) {
+        fscanf(file, "%lf\t%lf", &x[i], &y[i]);
+    }
 
-    y[0] = 38.3;
-    y[1] = 22.0;
-    y[2] = 17.8;
-    y[3] = 14.2;
+    printf("Ingressi els extrems del interval:\n");
+    printf("Extrem A: ");
+    scanf("%le", &a);
+    printf("Extrem B: ");
+    scanf("%le", &b);
 
     result = difdiv(x, y, n);
 
     if (result == 0) {
+        printf("Polinomi:\n");
         for (i = 0; i < n; i++) {
-            printf("%lf\n", y[i]);
+            if (i == 0) {
+                printf("P(x) = %lf", y[i]);
+            } else {
+                if (y[i] > 0) {
+                    printf("+");
+                }
+                printf("%lf", y[i]);
+                for (j = 0; j < i; j++) {
+                    printf("(x-%lf)", x[j]);
+                }
+            }
         }
-    }
-    printf("Evauluacion \n");
-    for (i = 0; i < n; i++) {
-        printf("%lf\n", horner(x[i], x, y, n));
+        printf("\n");
     }
 
-
-    /* x[0] = 3.2;
-     x[1] = 2.7;
-     x[2] = 1.0;
-
-     c[0] = 22.0;
-     c[1] = 8.4;
-     c[2] = 2.85;*/
-
-
+    pdistance = (b - a) / (pnum - 1);
+    printf("Rao de cambi: %.24lf\n",pdistance);
+    fout = fopen("../p3taula.out","w");
+    double eval;
+    printf("Evaluacio #%d en %.24lf\n", 1, a);
+    eval = horner(a, x, y, n - 1);
+    printf("%.24lf\n", eval);
+    peval = a;
+    fprintf(fout,"%24.16e\t %24.16e\n",peval,eval);
+    for (i = 0; i < pnum; i++) {
+        peval += pdistance;
+        printf("Evaluacio #%d en %.24lf\n", i+1, peval);
+        eval = horner(peval, x, y, n - 1);
+        printf("%.24lf\n",eval );
+        fprintf(fout,"%24.16e\t %24.16e\n",peval,eval);
+    }
+    free(x);
+    free(y);
+    fclose(file);
+    fclose(fout);
     return 0;
 }
