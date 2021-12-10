@@ -1,0 +1,1 @@
+plot 'runge5.out' using 0:2 w l,'runge5.out' using 0:1 w l

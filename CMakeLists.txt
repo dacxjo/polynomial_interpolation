@@ -8,3 +8,6 @@ include_directories(.)
 add_executable(polynomial_interpolation
         funs_interp.c
         funs_interp.h main_taula.c)
+add_executable(main_err
+        funs_interp.c
+        funs_interp.h main_errinterp.c)

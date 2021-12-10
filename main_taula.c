@@ -5,8 +5,7 @@
 #include "funs_interp.h"
 
 int main() {
-
-    double *x, *y, a, b, pdistance, peval;
+    double *x, *y, a, b, pdistance, eval, peval;
     int n, result, i, j, pnum = 1000;
     FILE *file,*fout;
 
@@ -18,9 +17,6 @@ int main() {
 
     x = (double *) malloc((sizeof(double) * n));
     y = (double *) malloc((sizeof(double) * n));
-
-    genVectNul(n, x);
-    genVectNul(n, y);
 
     if (x == NULL || y == NULL) {
         printf("No memory");
@@ -66,14 +62,14 @@ int main() {
 
     pdistance = (b - a) / (pnum - 1);
     printf("Rao de cambi: %.24lf\n",pdistance);
+
     fout = fopen("../p3taula.out","w");
-    double eval;
     printf("Evaluacio #%d en %.24lf\n", 1, a);
     eval = horner(a, x, y, n - 1);
     printf("%.24lf\n", eval);
     peval = a;
     fprintf(fout,"%24.16e\t %24.16e\n",peval,eval);
-    for (i = 0; i < pnum; i++) {
+    for (i = 1; i < pnum ; i++) {
         peval += pdistance;
         printf("Evaluacio #%d en %.24lf\n", i+1, peval);
         eval = horner(peval, x, y, n - 1);

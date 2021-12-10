@@ -5,7 +5,13 @@ double horner(double z, double *x, double *c, int n );
 
 int difdiv(double *x, double *f, int n);
 
-void genVectNul(int n, double *V);
+double fun_log(double z);
+
+double fun_runge(double z);
+
+void print_poli(double *y,double *x,int n);
+
+void reverseArr(double *arr, int n);
 
 #endif
 
