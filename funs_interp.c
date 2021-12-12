@@ -60,7 +60,7 @@ void print_poli(double *y, double *x, int n) {
     printf("\n");
 }
 
-void reverseArr(double *arr, int n) {
+void reverse_arr(double *arr, int n) {
     int i;
     double temp;
     for (i = 0; i < n / 2; i++) {

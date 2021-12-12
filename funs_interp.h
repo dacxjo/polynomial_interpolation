@@ -11,7 +11,7 @@ double fun_runge(double z);
 
 void print_poli(double *y,double *x,int n);
 
-void reverseArr(double *arr, int n);
+void reverse_arr(double *arr, int n);
 
 void genVectNul(int n, double *V);
 

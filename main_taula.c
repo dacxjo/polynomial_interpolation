@@ -43,10 +43,9 @@ int main() {
     fout = fopen("p3taula.out", "w");
     if (result == 0) {
         for (i = 0; i < pnum; i++) {
-            eval = 0.0;
             peval = a + (i * ((b - a) / pnum));
             printf("Evaluacio #%d en %24.16e\n", i + 1, peval);
-            eval = horner(peval, x, y, n);
+            eval = horner(peval, x, y, n - 1);
             printf("%24.16e\n", eval);
             fprintf(fout, "%24.16e\t %24.16e\n", peval, eval);
         }

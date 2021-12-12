@@ -45,8 +45,8 @@ int main() {
                 y[i] = fun_log(peval);
             }
 
-            reverseArr(x, n);
-            reverseArr(y, n);
+            reverse_arr(x, n);
+            reverse_arr(y, n);
 
             result = difdiv(x, y, n - 1);
             for (i = 0;i  < n; i++) {
@@ -58,7 +58,7 @@ int main() {
                 for (i = 0; i < pnum; i++) {
                     peval = a + (i * ((b - a) / pnum));
                     printf("Evaluacio #%d en %24.16e\n", i + 1, peval);
-                    eval = horner(peval, x, y, n);
+                    eval = horner(peval, x, y, n - 1);
                     printf("%24.16e\n", eval);
                     fprintf(fout, "%24.16e\t %24.16e\t %24.16e\n", peval, fun_log(peval), eval);
                     if (fabs(fun_log(peval) - eval) > err_maxim) {
@@ -102,8 +102,8 @@ int main() {
                 y[i] = fun_runge(peval);
             }
 
-            reverseArr(x, n);
-            reverseArr(y, n);
+            reverse_arr(x, n);
+            reverse_arr(y, n);
 
             result = difdiv(x, y, n - 1);
 
@@ -113,7 +113,7 @@ int main() {
                 for (i = 0; i < pnum; i++) {
                     peval = a + (i * ((b - a) / pnum));
                     printf("Evaluacio #%d en %24.16e\n", i + 1, peval);
-                    eval = horner(peval, x, y, n);
+                    eval = horner(peval, x, y, n - 1);
                     printf("%24.16e\n", eval);
                     fprintf(fout, "%24.16e\t %24.16e\t %24.16e\n", peval, fun_runge(peval), eval);
                     if (fabs(fun_runge(peval) - eval) > err_maxim) {
