@@ -5,9 +5,9 @@
 #include "funs_interp.h"
 
 int main() {
-    double *x, *y, a, b, pdistance, eval, peval;
-    int n, result, i, j, pnum = 1000;
-    FILE *file,*fout;
+    double *x, *y, a, b, eval, peval;
+    int n, result, i, pnum = 1000;
+    FILE *file, *fout;
 
     printf("-----Interpolacio Polinomial-----\n");
     printf("Ingressi el grau del polinomi:\n");
@@ -23,7 +23,7 @@ int main() {
         exit(EXIT_FAILURE);
     }
 
-    file = fopen("../taula.in", "r");
+    file = fopen("taula.in", "r");
 
     if (file == NULL) {
         printf("No es troba l'arxiu");
@@ -31,7 +31,7 @@ int main() {
     }
 
     for (i = 0; i < n; i++) {
-        fscanf(file, "%lf\t%lf", &x[i], &y[i]);
+        fscanf(file, "%le\t%le", &x[i], &y[i]);
     }
 
     printf("Ingressi els extrems del interval:\n");
@@ -39,42 +39,18 @@ int main() {
     scanf("%le", &a);
     printf("Extrem B: ");
     scanf("%le", &b);
-
-    result = difdiv(x, y, n);
-
+    result = difdiv(x, y, n - 1);
+    fout = fopen("p3taula.out", "w");
     if (result == 0) {
-        printf("Polinomi:\n");
-        for (i = 0; i < n; i++) {
-            if (i == 0) {
-                printf("P(x) = %lf", y[i]);
-            } else {
-                if (y[i] > 0) {
-                    printf("+");
-                }
-                printf("%lf", y[i]);
-                for (j = 0; j < i; j++) {
-                    printf("(x-%lf)", x[j]);
-                }
-            }
+        for (i = 0; i < pnum; i++) {
+            eval = 0.0;
+            peval = a + (i * ((b - a) / pnum));
+            printf("Evaluacio #%d en %24.16e\n", i + 1, peval);
+            eval = horner(peval, x, y, n);
+            printf("%24.16e\n", eval);
+            fprintf(fout, "%24.16e\t %24.16e\n", peval, eval);
         }
-        printf("\n");
-    }
-
-    pdistance = (b - a) / (pnum - 1);
-    printf("Rao de cambi: %.24lf\n",pdistance);
-
-    fout = fopen("../p3taula.out","w");
-    printf("Evaluacio #%d en %.24lf\n", 1, a);
-    eval = horner(a, x, y, n - 1);
-    printf("%.24lf\n", eval);
-    peval = a;
-    fprintf(fout,"%24.16e\t %24.16e\n",peval,eval);
-    for (i = 1; i < pnum ; i++) {
-        peval += pdistance;
-        printf("Evaluacio #%d en %.24lf\n", i+1, peval);
-        eval = horner(peval, x, y, n - 1);
-        printf("%.24lf\n",eval );
-        fprintf(fout,"%24.16e\t %24.16e\n",peval,eval);
+        print_poli(y, x, n - 1);
     }
     free(x);
     free(y);
@@ -82,3 +58,4 @@ int main() {
     fclose(fout);
     return 0;
 }
+

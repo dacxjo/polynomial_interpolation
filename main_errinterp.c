@@ -50,22 +50,22 @@ int main() {
 
             result = difdiv(x, y, n - 1);
             for (i = 0;i  < n; i++) {
-                printf("%lf\n",x[i]);
+                printf("%24.16e\n",x[i]);
             }
             if (result == 0) {
                 fout = fopen(nom_arxiu, "w");
                 err_maxim = 0.0;
                 for (i = 0; i < pnum; i++) {
                     peval = a + (i * ((b - a) / pnum));
-                    printf("Evaluacio #%d en %.24lf\n", i + 1, peval);
+                    printf("Evaluacio #%d en %24.16e\n", i + 1, peval);
                     eval = horner(peval, x, y, n);
-                    printf("%.24lf\n", eval);
-                    fprintf(fout, "%lf\t %lf\t %lf\n", peval, fun_log(peval), eval);
+                    printf("%24.16e\n", eval);
+                    fprintf(fout, "%24.16e\t %24.16e\t %24.16e\n", peval, fun_log(peval), eval);
                     if (fabs(fun_log(peval) - eval) > err_maxim) {
                         err_maxim = fabs(fun_log(peval) - eval);
                     }
                 }
-                fprintf(fout, "# %lf\n", err_maxim);
+                fprintf(fout, "# %24.16e\n", err_maxim);
                 print_poli(y, x, n - 1);
                 fclose(fout);
             }
@@ -88,6 +88,9 @@ int main() {
             x = (double *) malloc((sizeof(double) * n));
             y = (double *) malloc((sizeof(double) * n));
 
+            genVectNul(n,x);
+            genVectNul(n,y);
+
             if (x == NULL || y == NULL) {
                 printf("No memory");
                 exit(EXIT_FAILURE);
@@ -108,16 +111,16 @@ int main() {
                 fout = fopen(nom_arxiu, "w");
                 err_maxim = 0.0;
                 for (i = 0; i < pnum; i++) {
-                    peval = a + i * ((b - a) / pnum);
-                    printf("Evaluacio #%d en %.24lf\n", i + 1, peval);
+                    peval = a + (i * ((b - a) / pnum));
+                    printf("Evaluacio #%d en %24.16e\n", i + 1, peval);
                     eval = horner(peval, x, y, n);
-                    printf("%.24lf\n", eval);
-                    fprintf(fout, "%lf\t %lf\t %lf\n", peval, fun_runge(peval), eval);
+                    printf("%24.16e\n", eval);
+                    fprintf(fout, "%24.16e\t %24.16e\t %24.16e\n", peval, fun_runge(peval), eval);
                     if (fabs(fun_runge(peval) - eval) > err_maxim) {
                         err_maxim = fabs(fun_runge(peval) - eval);
                     }
                 }
-                fprintf(fout, "# %lf\n", err_maxim);
+                fprintf(fout, "# %24.16e\n", err_maxim);
                 print_poli(y, x, n - 1);
                 fclose(fout);
             }

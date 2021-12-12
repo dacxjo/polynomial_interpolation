@@ -41,17 +41,17 @@ void print_poli(double *y, double *x, int n) {
     printf("Polinomi:\n");
     for (i = 0; i < n + 1; i++) {
         if (i == 0) {
-            printf("P(%d) = %.24lf", n, y[i]);
+            printf("P(%d) = %e", n, y[i]);
         } else {
             if (y[i] > 0.0) {
                 printf("+");
             }
-            printf("%.24lf", y[i]);
+            printf("%e", y[i]);
             for (j = 0; j < i; j++) {
                 if (x[j] < 0) {
-                    printf("(x-(%.24lf))", x[j]);
+                    printf("(x-(%e))", x[j]);
                 } else {
-                    printf("(x-%.24lf)", x[j]);
+                    printf("(x-%e)", x[j]);
                 }
 
             }
@@ -67,5 +67,12 @@ void reverseArr(double *arr, int n) {
         temp = arr[i];
         arr[i] = arr[n - 1 - i];
         arr[n - 1 - i] = temp;
+    }
+}
+
+void genVectNul(int n, double *V) {
+    int i;
+    for (i = 0; i < n; i++) {
+        V[i] = 0.0;
     }
 }

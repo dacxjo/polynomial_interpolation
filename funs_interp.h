@@ -13,5 +13,7 @@ void print_poli(double *y,double *x,int n);
 
 void reverseArr(double *arr, int n);
 
+void genVectNul(int n, double *V);
+
 #endif
 

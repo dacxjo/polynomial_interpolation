@@ -1,1 +1,1 @@
-plot 'runge5.out' using 0:2 w l,'runge5.out' using 0:1 w l
+plot 'runge10.out' using 1:2 w l title 'Fx','runge10.out' using 1:3 w l  title 'Px'

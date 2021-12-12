@@ -1,0 +1,1 @@
+plot 'log5.out' using 1:2 w l title 'Pn','log5.out' using 1:3 w l  title 'Fx'
